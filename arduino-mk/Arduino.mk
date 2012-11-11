@@ -72,7 +72,7 @@
 #                            defined (ex Peplin)
 #                          - Added a monitor target which talks to the
 #                            Arduino serial port (Peplin's suggestion)
-#                          - Rejigged PATH calculations for general 
+#                          - Rejigged PATH calculations for general
 #                            tidiness (ex Peplin)
 #                          - Moved the reset target to Perl for
 #                            clarity and better error handling (ex
@@ -80,7 +80,7 @@
 #
 #          0.10 17.ix.12   M J Oldfield
 #            - Added installation notes for Fedora (ex Rickard Lindberg).
-#            - Changed size target so that it looks at the ELF object, 
+#            - Changed size target so that it looks at the ELF object,
 #              not the hexfile (ex Jared Szechy and Scott Howard).
 #            - Fixed ARDUNIO typo in README.md (ex Kalin Kozhuharov).
 #            - Tweaked OBJDIR handling (ex Matthias Urlichs and Scott Howard).
@@ -89,7 +89,7 @@
 #            - Only set AVRDUDE_CONF if it's not set (ex Tom Hall).
 #            - Added support for USB_PID/VID used by the Leonardo (ex Dan
 #              Villiom Podlaski Christiansen and Marc Plano-Lesay).
-#                      
+#
 ########################################################################
 #
 # PATHS YOU NEED TO SET UP
@@ -102,7 +102,7 @@
 # 1. Things which are included in this distribution e.g. ard-parse-boards
 #    => ARDMK_DIR
 #
-# 2. Things which are always in the Arduino distribution e.g. 
+# 2. Things which are always in the Arduino distribution e.g.
 #    boards.txt, libraries, &c.
 #    => ARDUINO_DIR
 #
@@ -126,13 +126,13 @@
 #   ARDMK_DIR     = /usr/local
 #   AVR_TOOLS_DIR = /usr
 #
-# You can either set these up in the Makefile, or put them in your 
+# You can either set these up in the Makefile, or put them in your
 # environment e.g. in your .bashrc
 #
 # If you don't install the ard-... binaries to /usr/local/bin, but
 # instead copy them to e.g. /home/mjo/arduino.mk/bin then set
 #   ARDML_DIR = /home/mjo/arduino.mk
-# 
+#
 ########################################################################
 #
 # DEPENDENCIES
@@ -194,15 +194,10 @@
 # SERIAL MONITOR
 #
 # The serial monitor just invokes the GNU screen program with suitable
-# options. For more information see screen (1) and search for 
+# options. For more information see screen (1) and search for
 # 'character special device'.
 #
-<<<<<<< HEAD
 # The really useful thing to know is that ^A-k gets you out!
-=======
-# If the tools aren't in the Arduino distribution, then you need to
-# specify their location:
->>>>>>> change ARDUINO_LIB_PATH/libraries to ARDUINO_LIB_PATH/hardware/libraries
 #
 # The fairly useful thing to know is that you can bind another key to
 # escape too, by creating $HOME{.screenrc} containing e.g.
@@ -224,7 +219,7 @@
 # 1. Things which are included in this distribution e.g. ard-parse-boards
 #    => ARDMK_DIR
 #
-# 2. Things which are always in the Arduino distribution e.g. 
+# 2. Things which are always in the Arduino distribution e.g.
 #    boards.txt, libraries, &c.
 #    => ARDUINO_DIR
 #
@@ -249,7 +244,7 @@
 #   AVR_TOOLS_DIR = /usr
 #
 #
-#  
+#
 #
 ########################################################################
 #
@@ -680,17 +675,13 @@ raw_upload:	$(TARGET_HEX)
 		$(AVRDUDE) $(AVRDUDE_COM_OPTS) $(AVRDUDE_ARD_OPTS) \
 			-U flash:w:$(TARGET_HEX):i
 
-reset:		
+reset:
 		$(RESET_CMD) $(ARD_PORT)
 
 # stty on MacOS likes -F, but on Debian it likes -f redirecting
 # stdin/out appears to work but generates a spurious error on MacOS at
 # least. Perhaps it would be better to just do it in perl ?
-<<<<<<< HEAD
-reset_stty:		
-=======
-reset:
->>>>>>> change ARDUINO_LIB_PATH/libraries to ARDUINO_LIB_PATH/hardware/libraries
+reset_stty:
 		for STTYF in 'stty -F' 'stty --file' 'stty -f' 'stty <' ; \
 		  do $$STTYF /dev/tty >/dev/null 2>/dev/null && break ; \
 		done ;\
@@ -718,16 +709,11 @@ depends:	$(DEPS)
 size:		$(OBJDIR) $(TARGET_ELF)
 		$(SIZE) -C --mcu=$(MCU) $(TARGET_ELF)
 
-<<<<<<< HEAD
-show_boards:	
+show_boards:
 		$(PARSE_BOARD_CMD) --boards
 
 monitor:
 		$(MONITOR_CMD) $(ARD_PORT) $(MONITOR_BAUDRATE)
-=======
-show_boards:
-		$(PARSE_BOARD) --boards
->>>>>>> change ARDUINO_LIB_PATH/libraries to ARDUINO_LIB_PATH/hardware/libraries
 
 .PHONY:	all clean depends upload raw_upload reset reset_stty size show_boards monitor
 
