@@ -6,7 +6,7 @@
 # Copyright (C) 2010,2011,2012 Martin Oldfield <m@mjo.tc>, based on
 # work that is copyright Nicholas Zambetti, David A. Mellis & Hernando
 # Barragan.
-# 
+#
 # This file is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as
 # published by the Free Software Foundation; either version 2.1 of the
@@ -39,13 +39,13 @@
 #
 #         0.6  22.vi.2011  M J Oldfield
 #                          - added ard-parse-boards supports
-#                          - added -lc to linker opts, 
+#                          - added -lc to linker opts,
 #                            on Fabien Le Lez's advice
 #
 #         0.7  12.vii.2011 M J Oldfield
 #                          - moved -lm to the end of linker opts,
 #	                     to solve Frank Knopf's problem;
-#                          - added -F to stty opts: Craig Hollabaugh 
+#                          - added -F to stty opts: Craig Hollabaugh
 #	                     reckons it's good for Ubuntu
 #
 #         0.8  12.ii.2012  M J Oldfield
@@ -160,7 +160,7 @@
 #
 #    ARDUINO_LIBS - A list of any libraries used by the sketch (we
 #                   assume these are in
-#                   $(ARDUINO_DIR)/hardware/libraries 
+#                   $(ARDUINO_DIR)/hardware/libraries
 #
 #    ARDUINO_PORT - The port where the Arduino can be found (only needed
 #                   when uploading
@@ -197,7 +197,12 @@
 # options. For more information see screen (1) and search for 
 # 'character special device'.
 #
+<<<<<<< HEAD
 # The really useful thing to know is that ^A-k gets you out!
+=======
+# If the tools aren't in the Arduino distribution, then you need to
+# specify their location:
+>>>>>>> change ARDUINO_LIB_PATH/libraries to ARDUINO_LIB_PATH/hardware/libraries
 #
 # The fairly useful thing to know is that you can bind another key to
 # escape too, by creating $HOME{.screenrc} containing e.g.
@@ -258,7 +263,7 @@
 #
 # You might also need to set the fuse bits, but typically they'll be
 # read from boards.txt, based on the BOARD_TAG variable:
-#     
+#
 #     ISP_LOCK_FUSE_PRE  = 0x3f
 #     ISP_LOCK_FUSE_POST = 0xcf
 #     ISP_HIGH_FUSE      = 0xdf
@@ -267,7 +272,7 @@
 #
 # I think the fuses here are fine for uploading to the ATmega168
 # without bootloader.
-# 
+#
 # To actually do this upload use the ispload target:
 #
 #    make ispload
@@ -276,7 +281,7 @@
 ########################################################################
 
 ########################################################################
-# 
+#
 # Default TARGET to cwd (ex Daniele Vergini)
 ifndef TARGET
 TARGET  = $(notdir $(CURDIR))
@@ -307,7 +312,7 @@ ifndef AVR_TOOLS_PATH
 AVR_TOOLS_PATH    = $(AVR_TOOLS_DIR)/bin
 endif
 
-ARDUINO_LIB_PATH  = $(ARDUINO_DIR)/libraries
+ARDUINO_LIB_PATH  = $(ARDUINO_DIR)/hardware/libraries
 ARDUINO_CORE_PATH = $(ARDUINO_DIR)/hardware/arduino/cores/arduino
 ARDUINO_VAR_PATH  = $(ARDUINO_DIR)/hardware/arduino/variants
 
@@ -681,13 +686,17 @@ reset:
 # stty on MacOS likes -F, but on Debian it likes -f redirecting
 # stdin/out appears to work but generates a spurious error on MacOS at
 # least. Perhaps it would be better to just do it in perl ?
+<<<<<<< HEAD
 reset_stty:		
+=======
+reset:
+>>>>>>> change ARDUINO_LIB_PATH/libraries to ARDUINO_LIB_PATH/hardware/libraries
 		for STTYF in 'stty -F' 'stty --file' 'stty -f' 'stty <' ; \
 		  do $$STTYF /dev/tty >/dev/null 2>/dev/null && break ; \
 		done ;\
 		$$STTYF $(ARD_PORT)  hupcl ;\
 		(sleep 0.1 || sleep 1)     ;\
-		$$STTYF $(ARD_PORT) -hupcl 
+		$$STTYF $(ARD_PORT) -hupcl
 
 ispload:	$(TARGET_HEX)
 		$(AVRDUDE) $(AVRDUDE_COM_OPTS) $(AVRDUDE_ISP_OPTS) -e \
@@ -709,11 +718,16 @@ depends:	$(DEPS)
 size:		$(OBJDIR) $(TARGET_ELF)
 		$(SIZE) -C --mcu=$(MCU) $(TARGET_ELF)
 
+<<<<<<< HEAD
 show_boards:	
 		$(PARSE_BOARD_CMD) --boards
 
 monitor:
 		$(MONITOR_CMD) $(ARD_PORT) $(MONITOR_BAUDRATE)
+=======
+show_boards:
+		$(PARSE_BOARD) --boards
+>>>>>>> change ARDUINO_LIB_PATH/libraries to ARDUINO_LIB_PATH/hardware/libraries
 
 .PHONY:	all clean depends upload raw_upload reset reset_stty size show_boards monitor
 
