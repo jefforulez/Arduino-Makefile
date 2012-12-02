@@ -307,7 +307,7 @@ ifndef AVR_TOOLS_PATH
 AVR_TOOLS_PATH    = $(AVR_TOOLS_DIR)/bin
 endif
 
-ARDUINO_LIB_PATH  = $(ARDUINO_DIR)/hardware/libraries
+ARDUINO_LIB_PATH  = $(ARDUINO_DIR)/libraries
 ARDUINO_CORE_PATH = $(ARDUINO_DIR)/hardware/arduino/cores/arduino
 ARDUINO_VAR_PATH  = $(ARDUINO_DIR)/hardware/arduino/variants
 
